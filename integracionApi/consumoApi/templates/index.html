@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1 >Consumo de API</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <label for="Pokemon">Pokemon name or number:</label>
+        <input type="text" name="Pokemon" placeholder="Pokemon" required>
+        <button type="submit">Search</button>
+    </form>
+    <div>
+        {% if Pokemon %}
+            <h2>Pokemon: {{ Pokemon.name }}</h2>
+            <img src="{{ Pokemon.sprites.front_default }}" alt="Pokemon Image">
+            <p>Height: {{ Pokemon.height }}</p>
+            <p>Weight: {{ Pokemon.weight }}</p>
+            <p>Types:
+                {% for type in Pokemon.types %}
+                    {{ type.type.name }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+        {% endif %}
+
+</body>
+</html>
